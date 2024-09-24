@@ -4118,11 +4118,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\dev\\projeto\\MapIM\\MapIM.csproj",
+      "projectUniqueName": "C:\\dev\\projetoExtensao\\MapIM-API\\MapIM\\MapIM.csproj",
       "projectName": "MapIM",
-      "projectPath": "C:\\dev\\projeto\\MapIM\\MapIM.csproj",
+      "projectPath": "C:\\dev\\projetoExtensao\\MapIM-API\\MapIM\\MapIM.csproj",
       "packagesPath": "C:\\Users\\gusta\\.nuget\\packages\\",
-      "outputPath": "C:\\dev\\projeto\\MapIM\\obj\\",
+      "outputPath": "C:\\dev\\projetoExtensao\\MapIM-API\\MapIM\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

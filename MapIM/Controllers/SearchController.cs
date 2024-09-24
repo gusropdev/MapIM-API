@@ -26,15 +26,15 @@ public class SearchController : ControllerBase
 
         var departmentsTask = _context.Departments
         .Where(x => x.Name.Contains(query))
-        .Select(x => new SearchResultViewModel { Id = x.Id, Name = x.Name, Type = "Department" });
+        .Select(x => new SearchResultViewModel { Id = x.Id, Name = x.Name, Type = "Departmento" });
 
         var roomsTask = _context.Rooms
             .Where(x => x.Name.Contains(query))
-            .Select(x => new SearchResultViewModel { Id = x.Id, Name = x.Name, Type = "Room" });
+            .Select(x => new SearchResultViewModel { Id = x.Id, Name = x.Name, Type = "Sala" });
 
         var categoriesTask = _context.Categories
             .Where(x => x.Name.Contains(query))
-            .Select(x => new SearchResultViewModel { Id = x.Id, Name = x.Name, Type = "Category" });
+            .Select(x => new SearchResultViewModel { Id = x.Id, Name = x.Name, Type = "Categoria" });
 
         var professorsTask = _context.Professors
             .Where(x => x.Name.Contains(query))
@@ -42,7 +42,7 @@ public class SearchController : ControllerBase
 
         var floorsTask = _context.Floors
             .Where(x => x.Name.Contains(query))
-            .Select(x => new SearchResultViewModel { Id = x.Id, Name = x.Name, Type = "Floor" });
+            .Select(x => new SearchResultViewModel { Id = x.Id, Name = x.Name, Type = "Andar" });
 
         var unifiedResults = await departmentsTask
                .Union(roomsTask)
