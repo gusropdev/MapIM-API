@@ -11,34 +11,6 @@ namespace MapIM.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Blocks",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "401, 1"),
-                    Name = table.Column<string>(type: "NVARCHAR(80)", maxLength: 80, nullable: false),
-                    Slug = table.Column<string>(type: "VARCHAR(80)", maxLength: 80, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Blocks", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Categories",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "411, 1"),
-                    Name = table.Column<string>(type: "NVARCHAR(80)", maxLength: 80, nullable: false),
-                    Slug = table.Column<string>(type: "VARCHAR(80)", maxLength: 80, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Categories", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Departments",
                 columns: table => new
                 {
@@ -53,27 +25,6 @@ namespace MapIM.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Floors",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "451, 1"),
-                    Name = table.Column<string>(type: "NVARCHAR(80)", maxLength: 80, nullable: false),
-                    Slug = table.Column<string>(type: "VARCHAR(80)", maxLength: 80, nullable: false),
-                    BlockId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Floors", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Floor_Block",
-                        column: x => x.BlockId,
-                        principalTable: "Blocks",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Rooms",
                 columns: table => new
                 {
@@ -82,31 +33,20 @@ namespace MapIM.Migrations
                     Name = table.Column<string>(type: "NVARCHAR(80)", maxLength: 80, nullable: false),
                     Number = table.Column<int>(type: "INT", nullable: false),
                     Slug = table.Column<string>(type: "VARCHAR(80)", maxLength: 80, nullable: false),
-                    FloorId = table.Column<int>(type: "int", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    Floor = table.Column<string>(type: "NVARCHAR(80)", maxLength: 80, nullable: false),
+                    Category = table.Column<string>(type: "NVARCHAR(80)", maxLength: 80, nullable: false),
+                    Block = table.Column<string>(type: "NVARCHAR(80)", maxLength: 80, nullable: false),
                     DepartmentId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Rooms", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Room_Category",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_Room_Department",
                         column: x => x.DepartmentId,
                         principalTable: "Departments",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.SetNull);
-                    table.ForeignKey(
-                        name: "FK_Room_Floor",
-                        column: x => x.FloorId,
-                        principalTable: "Floors",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -139,33 +79,10 @@ namespace MapIM.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Block_Slug",
-                table: "Blocks",
-                column: "Slug",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Category_Slug",
-                table: "Categories",
-                column: "Slug",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Department_Slug",
                 table: "Departments",
                 column: "Slug",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Floor_Slug",
-                table: "Floors",
-                column: "Slug",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Floors_BlockId",
-                table: "Floors",
-                column: "BlockId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Professor_Slug",
@@ -190,19 +107,9 @@ namespace MapIM.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Rooms_CategoryId",
-                table: "Rooms",
-                column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Rooms_DepartmentId",
                 table: "Rooms",
                 column: "DepartmentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Rooms_FloorId",
-                table: "Rooms",
-                column: "FloorId");
         }
 
         /// <inheritdoc />
@@ -215,16 +122,7 @@ namespace MapIM.Migrations
                 name: "Rooms");
 
             migrationBuilder.DropTable(
-                name: "Categories");
-
-            migrationBuilder.DropTable(
                 name: "Departments");
-
-            migrationBuilder.DropTable(
-                name: "Floors");
-
-            migrationBuilder.DropTable(
-                name: "Blocks");
         }
     }
 }

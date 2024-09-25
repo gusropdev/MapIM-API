@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MapIM.Migrations
 {
     [DbContext(typeof(MapimDataContext))]
-    [Migration("20240924140529_CreateDatabase")]
+    [Migration("20240925204532_CreateDatabase")]
     partial class CreateDatabase
     {
         /// <inheritdoc />
@@ -24,62 +24,6 @@ namespace MapIM.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("MapIM.Models.Block", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 401L);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(80)
-                        .HasColumnType("NVARCHAR")
-                        .HasColumnName("Name");
-
-                    b.Property<string>("Slug")
-                        .IsRequired()
-                        .HasMaxLength(80)
-                        .HasColumnType("VARCHAR")
-                        .HasColumnName("Slug");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "Slug" }, "IX_Block_Slug")
-                        .IsUnique();
-
-                    b.ToTable("Blocks");
-                });
-
-            modelBuilder.Entity("MapIM.Models.Category", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 411L);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(80)
-                        .HasColumnType("NVARCHAR")
-                        .HasColumnName("Name");
-
-                    b.Property<string>("Slug")
-                        .IsRequired()
-                        .HasMaxLength(80)
-                        .HasColumnType("VARCHAR")
-                        .HasColumnName("Slug");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "Slug" }, "IX_Category_Slug")
-                        .IsUnique();
-
-                    b.ToTable("Categories");
-                });
 
             modelBuilder.Entity("MapIM.Models.Department", b =>
                 {
@@ -107,39 +51,6 @@ namespace MapIM.Migrations
                         .IsUnique();
 
                     b.ToTable("Departments");
-                });
-
-            modelBuilder.Entity("MapIM.Models.Floor", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 451L);
-
-                    b.Property<int>("BlockId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(80)
-                        .HasColumnType("NVARCHAR")
-                        .HasColumnName("Name");
-
-                    b.Property<string>("Slug")
-                        .IsRequired()
-                        .HasMaxLength(80)
-                        .HasColumnType("VARCHAR")
-                        .HasColumnName("Slug");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BlockId");
-
-                    b.HasIndex(new[] { "Slug" }, "IX_Floor_Slug")
-                        .IsUnique();
-
-                    b.ToTable("Floors");
                 });
 
             modelBuilder.Entity("MapIM.Models.Professor", b =>
@@ -194,14 +105,26 @@ namespace MapIM.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 101L);
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
+                    b.Property<string>("Block")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("NVARCHAR")
+                        .HasColumnName("Block");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("NVARCHAR")
+                        .HasColumnName("Category");
 
                     b.Property<int?>("DepartmentId")
                         .HasColumnType("int");
 
-                    b.Property<int>("FloorId")
-                        .HasColumnType("int");
+                    b.Property<string>("Floor")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("NVARCHAR")
+                        .HasColumnName("Floor");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -221,28 +144,12 @@ namespace MapIM.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
-
                     b.HasIndex("DepartmentId");
-
-                    b.HasIndex("FloorId");
 
                     b.HasIndex(new[] { "Slug" }, "IX_Room_Slug")
                         .IsUnique();
 
                     b.ToTable("Rooms");
-                });
-
-            modelBuilder.Entity("MapIM.Models.Floor", b =>
-                {
-                    b.HasOne("MapIM.Models.Block", "Block")
-                        .WithMany("Floors")
-                        .HasForeignKey("BlockId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired()
-                        .HasConstraintName("FK_Floor_Block");
-
-                    b.Navigation("Block");
                 });
 
             modelBuilder.Entity("MapIM.Models.Professor", b =>
@@ -268,52 +175,19 @@ namespace MapIM.Migrations
 
             modelBuilder.Entity("MapIM.Models.Room", b =>
                 {
-                    b.HasOne("MapIM.Models.Category", "Category")
-                        .WithMany("Rooms")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired()
-                        .HasConstraintName("FK_Room_Category");
-
                     b.HasOne("MapIM.Models.Department", "Department")
                         .WithMany("Rooms")
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.SetNull)
                         .HasConstraintName("FK_Room_Department");
 
-                    b.HasOne("MapIM.Models.Floor", "Floor")
-                        .WithMany("Rooms")
-                        .HasForeignKey("FloorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired()
-                        .HasConstraintName("FK_Room_Floor");
-
-                    b.Navigation("Category");
-
                     b.Navigation("Department");
-
-                    b.Navigation("Floor");
-                });
-
-            modelBuilder.Entity("MapIM.Models.Block", b =>
-                {
-                    b.Navigation("Floors");
-                });
-
-            modelBuilder.Entity("MapIM.Models.Category", b =>
-                {
-                    b.Navigation("Rooms");
                 });
 
             modelBuilder.Entity("MapIM.Models.Department", b =>
                 {
                     b.Navigation("Professors");
 
-                    b.Navigation("Rooms");
-                });
-
-            modelBuilder.Entity("MapIM.Models.Floor", b =>
-                {
                     b.Navigation("Rooms");
                 });
 

@@ -53,6 +53,6 @@ void Configure(IApplicationBuilder app)
 
     app.UseEndpoints(endpoints =>
     {
-        endpoints.MapControllers(); // Isso deve estar presente para mapear os controladores
+        endpoints.MapControllers();
     });
 }

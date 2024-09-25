@@ -45,15 +45,5 @@
       }
     ],
     "ReturnTypes": []
-  },
-  {
-    "ContainingType": "MapIM.Controllers.CategoryController",
-    "Method": "GeyAsync",
-    "RelativePath": "v1/api/categories",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
   }
 ]

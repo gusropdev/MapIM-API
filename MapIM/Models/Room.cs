@@ -6,9 +6,10 @@ public class Room
     public string Name { get; set; }
     public int Number { get; set; }
     public string Slug { get; set; }
-    public Floor Floor { get; set; }
-    public Category Category { get; set; }
-    public Department Department { get; set; }
+    public string Floor { get; set; }
+    public string Category { get; set; }
+    public string Block { get; set; }
+    public Department? Department { get; set; }
     public int? DepartmentId { get; set; }
     public ICollection<Professor>? Professors { get; set; }
 }

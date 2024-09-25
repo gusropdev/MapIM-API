@@ -22,7 +22,6 @@ public class RoomMap : IEntityTypeConfiguration<Room>
                .HasMaxLength(80);
 
         builder.Property(x => x.Number)
-               .IsRequired()
                .HasColumnName("Number")
                .HasColumnType("INT");
 
@@ -32,18 +31,26 @@ public class RoomMap : IEntityTypeConfiguration<Room>
                .HasColumnType("VARCHAR")
                .HasMaxLength(80);
 
+        builder.Property(x => x.Floor)
+               .IsRequired()
+               .HasColumnName("Floor")
+               .HasColumnType("NVARCHAR")
+               .HasMaxLength(80);
+
+        builder.Property(x => x.Category)
+               .IsRequired()
+               .HasColumnName("Category")
+               .HasColumnType("NVARCHAR")
+               .HasMaxLength(80);
+
+        builder.Property(x => x.Block)
+               .IsRequired()
+               .HasColumnName("Block")
+               .HasColumnType("NVARCHAR")
+               .HasMaxLength(80);
+
         builder.HasIndex(x => x.Slug, "IX_Room_Slug")
                .IsUnique();
-
-        builder.HasOne(x => x.Category)
-               .WithMany(x => x.Rooms)
-               .HasConstraintName("FK_Room_Category")
-               .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasOne(x => x.Floor)
-               .WithMany(x => x.Rooms)
-               .HasConstraintName("FK_Room_Floor")
-               .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(x => x.Department)
                .WithMany(x => x.Rooms)

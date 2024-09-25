@@ -32,17 +32,12 @@ public class SearchController : ControllerBase
             .Where(x => x.Name.Contains(query))
             .Select(x => new SearchResultViewModel { Id = x.Id, Name = x.Name, Type = "Sala" });
 
-        var categoriesTask = _context.Categories
-            .Where(x => x.Name.Contains(query))
-            .Select(x => new SearchResultViewModel { Id = x.Id, Name = x.Name, Type = "Categoria" });
-
         var professorsTask = _context.Professors
             .Where(x => x.Name.Contains(query))
             .Select(x => new SearchResultViewModel { Id = x.Id, Name = x.Name, Type = "Professor" });
 
         var unifiedResults = await departmentsTask
                .Union(roomsTask)
-               .Union(categoriesTask)
                .Union(professorsTask)
                .ToListAsync();
 
@@ -85,22 +80,6 @@ public class SearchController : ControllerBase
                     RoomSlug = room.Slug
                 };
                 break;
-
-
-            case "categoria":
-                var category = await _context.Categories
-                    .Include(x => x.Rooms)
-                    .FirstOrDefaultAsync(x => x.Id == entityId);
-
-                if (category == null || !category.Rooms.Any())
-                    return NotFound("Categoria ou salas não encontradas.");
-
-                result = new
-                {
-                    Rooms = category.Rooms.Select(x => new { x.Id, x.Slug })
-                };
-                break;
-
 
             case "departamento":
                 var department = await _context.Departments
