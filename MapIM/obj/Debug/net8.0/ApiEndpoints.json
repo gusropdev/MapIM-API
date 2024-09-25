@@ -26,6 +26,27 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "MapIM.Controllers.SearchController",
+    "Method": "GetRoomDetailsAsync",
+    "RelativePath": "api/Search/details",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "entityId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "entityType",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "MapIM.Controllers.CategoryController",
     "Method": "GeyAsync",
     "RelativePath": "v1/api/categories",
