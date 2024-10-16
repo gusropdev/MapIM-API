@@ -62,7 +62,8 @@ public class SearchController : ControllerBase
                 result = new
                 {
                     RoomId = professor.Room.Id,
-                    RoomSlug = professor.Room.Slug
+                    RoomSlug = professor.Room.Slug,
+                    RoomFloor = professor.Room.Floor
                 };
                 break;
 
@@ -77,7 +78,8 @@ public class SearchController : ControllerBase
                 result = new
                 {
                     RoomId = room.Id,
-                    RoomSlug = room.Slug
+                    RoomSlug = room.Slug,
+                    RoomFloor = room.Floor
                 };
                 break;
 
@@ -91,7 +93,7 @@ public class SearchController : ControllerBase
 
                 result = new
                 {
-                    Rooms = department.Rooms.Select(x => new { x.Id, x.Slug })
+                    Rooms = department.Rooms.Select(x => new { x.Id, x.Slug, x.Floor })
                 };
                 break;
 

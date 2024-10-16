@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MapIM")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f20426c8521996b566494dbf7c80cdf1cbf88f36")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9e05a3fdb553b4e1b8d99b9554ff0f7cd430275e")]
 [assembly: System.Reflection.AssemblyProductAttribute("MapIM")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MapIM")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
